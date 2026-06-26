@@ -23,7 +23,7 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
+  border-bottom: 2px solid #e7a54f;
 }
 
 .header .container {
@@ -34,7 +34,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: #deedc8;
 }
 
 .agora {
@@ -47,11 +47,11 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #e3b062;
+  color: #deedc8;
 }
 
 .titulo {
-  color: #32b9cd;
+  color: #e7a54f;
   width: fit-content;
   font-weight: 500;
 }
@@ -63,67 +63,85 @@ body {
 /* BANNER */
 
 .banner {
-  height: var(--tamanho-banner);
+  height: 100vh;
   color: white;
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
+  background-image: url('../assets/imgs/index1.png');
   background-size: cover;
-}
-
-.banner .container {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.banner .container p {
-  width: 50%;
-  margin: 0;
-  padding: 0;
-  font-size: 36px;
-}
-
-.banner .container span {
-  font-weight: 800;
+  background-repeat: no-repeat;
 }
 
 /* MISSÃO VISÃO VALORES */
 
-.social {
-  background-color: #e5e5e5;
+.pok-info {
+  height: 80vh;
+  border-top: 2px solid #e7a54f;
   display: flex;
 }
 
-.social .container {
+.pok-info-img {
+  height: 90%;
+  width: 393px;
+  margin-left: 5vh;
+  margin-top: 4vh;
+  border: 2.5px solid #e7a54f;
+}
+
+.pok-info-img  img{
+  height: 100%;
+}
+
+.pok-info-content {
+  height: 90%;
+  width: 70%;
+  margin-top: 4vh;
+  margin-left: 3vh;
+  border: 2.5px solid #e7a54f;
   justify-content: center;
+  justify-items: center;
+  color: #deedc8;
 }
 
-.box img {
-  width: 170px;
+.pok-info-content h1 {
+  color: #e7a54f;
 }
 
-.social .container .boxes {
+.pok-info-content-1 {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 30px 0;
+  border-bottom: 1px solid #e7a54f;
+  border-right: 1px solid #e7a54f;
+  width: 90%;
+  height: 20%;
 }
 
-.social p {
-  text-align: center;
-}
-
-.box {
+.howtosurged-pokemon {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+.pok-info-content-2 {
+  display: flex;
+  margin-left: 5%;
+  width: 50%;
+  height: 50%;
+}
+
+.satoshi-tajiri {
+  background-image: url(../assets/imgs/Satoshi-Tajiri.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  margin-left: 10%;
+  border-radius: 100%;
+  width: 40vh;
+  height: 40vh;
 }
 
 /* FOOTER */
 
 .footer {
-  background-color: #32b9cd;
+  background-color: #000;
+  border-top: 2px solid #e7a54f;
   height: 150px;
-  color: #fff;
+  color: #deedc8;
   display: flex;
   font-size: 15px;
 }
@@ -137,12 +155,101 @@ body {
   font-size: 12px;
 }
 
+/* CADASTRO */
+.cadastro {
+  height: var(--tamanho-login);
+  background-image: url('../assets/imgs/cadastro1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cadastro .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.cadastro .container .card {
+  width: 50%;
+  background-color: #000;
+  border: 2px solid #0b0197;
+  border-radius: 10px;
+  margin-right: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: rgb(194, 83, 245);
+  flex-direction: column;
+  height: fit-content;
+  padding: 20px 0;
+}
+
+.cadastro .container .card h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.cadastro .container .formulario {
+  display: flex;
+  height: 90%;
+  width: 80%;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.cadastro .container .formulario span {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.cadastro .container .formulario input {
+  border: 2px solid #0b0197;
+  background-color: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.cadastro .container .formulario select {
+  border: 2px solid #0b0197;
+  background-color: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
+  height: 36px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.cadastro .container .campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 5px 0;
+}
+
+.cadastro .container .botao {
+  cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  background-color: rgb(194, 83, 245);
+  width: 120px;
+  height: 30px;
+  align-self: center;
+  margin-top: 20px;
+}
+
 /* LOGIN */
 
 .login {
   height: var(--tamanho-login);
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
+  background-image: url('../assets/imgs/login1.png');
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .login .container {
@@ -151,25 +258,27 @@ body {
   height: 100%;
 }
 
-.card {
+.login .container .card {
   width: 50%;
-  background-color: #e5e5e5;
+  background-color: #000;
+  border: 2px solid #970101;
   border-radius: 10px;
+  margin-left: 35%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: palevioletred;
+  color: rgb(245, 129, 83);
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
 }
 
-.card h2 {
+.login .container .card h2 {
   margin: 0;
   font-size: 30px;
 }
 
-.formulario {
+.login .container .formulario {
   display: flex;
   height: 90%;
   width: 80%;
@@ -177,36 +286,38 @@ body {
   flex-direction: column;
 }
 
-.formulario span {
+.login .container .formulario span {
   font-size: 15px;
   font-weight: 800;
 }
 
-.formulario input {
-  border: 2px solid #32b9cd;
+.login .container .formulario input {
+  border: 2px solid #970101;
+  background-color: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 10px;
   margin: 0;
 }
 
-.formulario select {
-  border: 2px solid #32b9cd;
-  background-color: white;
-  color: gray;
+.login .container .formulario select {
+  border: 2px solid #970101;
+  background-color: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
   height: 36px;
   text-align: center;
   border-radius: 10px;
   margin: 0;
 }
 
-.campo {
+.login .container .campo {
   display: flex;
   flex-direction: column;
   justify-content: start;
   padding: 5px 0;
 }
 
-.botao {
+.login .container .botao {
   cursor: pointer;
   font-family: "Barlow", sans-serif;
   border: 0;
@@ -214,21 +325,11 @@ body {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #ED145B;
+  background-color: rgb(245, 129, 83);
   width: 120px;
   height: 30px;
   align-self: center;
   margin-top: 20px;
-}
-
-.loading-div {
-  width: 50px;
-  display: none;
-}
-
-.loading-div img {
-  height: 50px;
-  width: 50px;
 }
 
 #div_erros_login {
@@ -310,8 +411,45 @@ input {
 
 .simulador .container {
   flex-direction: column;
-  overflow: scroll; 
   height: var(--tamanho-simulador);
+}
+
+#div_pokedex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh;
+}
+
+.pokedex-card {
+  height: 35vh;
+  width: 25vh;
+  border: 2px solid #ffc6c6;
+  border-radius: 10px;
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+}
+
+.pokemon-number{
+  margin-top: 1vh;
+  font-size: 20px;
+}
+
+.pokemon-name {
+  margin-top: 5%;
+  font-size: 15px;
+}
+
+.pokemon-img {
+  height: 150px;
+  width: 150px;
+  margin-top: 15%;
+  margin-bottom: 10%
+}
+
+.pokemon-type {
+  height: 25px;
+  width: 100px;
 }
 
 /* ALERTA */
