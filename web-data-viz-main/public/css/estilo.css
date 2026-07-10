@@ -243,6 +243,16 @@ body {
   margin-top: 20px;
 }
 
+.cadastro .container .fotos-de-perfil {
+  display: flex;
+}
+
+#fotoperfil_input_img {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+}
+
 /* LOGIN */
 
 .login {
