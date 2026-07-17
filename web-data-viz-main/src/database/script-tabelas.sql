@@ -12,10 +12,10 @@ USE ctahelper;
 
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-    nick VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
+	nome VARCHAR(50) NOT NULL,
+    nick VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	senha VARCHAR(50) NOT NULL,
 	foto_perfil INT
 );
 
@@ -30,10 +30,33 @@ CREATE TABLE pokemon (
 CREATE TABLE registro (
 	fk_usuario INT,
 	fk_pokemon INT,
+    data_registro DATE DEFAULT(CURRENT_DATE()),
     PRIMARY KEY(fk_usuario, fk_pokemon),
 	FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
     FOREIGN KEY (fk_pokemon) REFERENCES pokemon(id)
 );
+
+SELECT * FROM ctahelper.usuario;
+SELECT * FROM ctahelper.pokemon;
+SELECT * FROM ctahelper.registro;
+SELECT fk_pokemon FROM registro WHERE fk_usuario = '${idUsuario}';
+SELECT fk_pokemon FROM ctahelper.registro AS r
+	JOIN ctahelper.pokemon AS p 
+	ON r.fk_pokemon = p.id
+	WHERE (p.tipo_primario = 'Grama' OR p.tipo_secundario = 'Grama')
+	AND r.fk_usuario = '2';
+SELECT
+    p.id,
+    p.tipo_primario,
+    p.tipo_secundario,
+    CASE
+        WHEN r.fk_pokemon IS NOT NULL THEN 1
+        ELSE 0
+    END AS registrado
+FROM pokemon AS p
+LEFT JOIN registro AS r
+    ON p.id = r.fk_pokemon
+    AND r.fk_usuario = 2;
 
 INSERT INTO pokemon (id, nome, geracao, tipo_primario, tipo_secundario) VALUES
 (1,'Bulbasaur',1,'Grama','Veneno'),
