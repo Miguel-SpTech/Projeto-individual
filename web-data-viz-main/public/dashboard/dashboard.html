@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AquaTech | Dashboards</title>
 
-    
+    <script src="../js/sessao.js"></script>
+    <script src="../js/alerta.js"></script>
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
 
@@ -56,12 +57,22 @@
             <div id="div_informacoes">
                 <h1>Ola treinador <span id="informacoes_nome"></span>, aqui estao seus dados:</h1>
             </div>
-            <div id="div_kpis"></div>
+            
+            <div id="div_progress_bar">
+                <div class="div-kpi-dentro-do-grafico" id="kpi-progress-bar">
+                </div>
+                <div id="progress_bar">
+                    <div id="in_progress_bar" style="height: 100%; width: 0%; background-color: #bfe685; border-radius: 100px;"></div>
+                </div>
+            </div>
             <div class="grafico-pizza">
                 <h3>Pokemon registrados:</h3>
                 <div class="div-kpi-dentro-do-grafico" id="kpi_pokemon_all"></div>
-                <canvas id="grafico-all"></canvas>
+                <div id="div-grafico">
+                    <canvas id="grafico-all"></canvas>
+                </div>    
             </div>
+
             <div class="grafico-pizza">
                 <h3>Pokemon registrados do tipo <select name="tipo_pokemon_grafico" id="tipo_pokemon_grafico">
                     <option value="Normal">Normal</option>
@@ -83,9 +94,17 @@
                     <option value="Fada">Fada</option>
                     <option value="Metal">Metal</option>
                 </select>:</h3>
-                <button onclick="mudar_tipo_grafico()">Filtrar</button>
+                <button onclick="mudar_tipo_grafico()" id="filter-button">Filtrar</button>
                 <div class="div-kpi-dentro-do-grafico" id="kpi_pokemon_tipo"></div>
-                <canvas id="grafico_tipo_especifico"></canvas>
+                <div id="div-grafico">
+                    <canvas id="grafico_tipo_especifico"></canvas>
+                </div>
+            </div>
+            <div class="grafico-pizza">
+                <h3>Pokemon registrados por Regiao:</h3>
+                <div id="div-grafico">
+                    <canvas id="grafico-region"></canvas>
+                </div>    
             </div>
         </div>
     </div>
@@ -131,14 +150,59 @@
                     let grafico_principal = new Chart(document.getElementById('grafico-all'), {
                         type: 'pie',
                         data: {
-                        labels: ['Registrados', 'Não Registrados'],
-                        datasets: [{
-                        data: informacao_pokemon_registrados,
-                        backgroundColor: ['#dc143c', '#444']
-                }]
-            }
-        });
-        
+                            labels: ['Registrados', 'Não Registrados'],
+                            datasets: [{
+                                data: informacao_pokemon_registrados,
+                                backgroundColor: ['#dc143c', '#444']
+                            }]
+                        }
+                    });
+                    let progress = (registrados / (registrados + not_registrados)) * 100;
+                    document.getElementById("kpi-progress-bar").innerHTML = `${progress}`;
+                    document.getElementById("in_progress_bar").style.width = `${progress}%`;
+                    let gen1 = 0;
+                    let gen2 = 0;
+                    let gen3 = 0;
+                    let gen4 = 0;
+                    let gen5 = 0;
+                    let gen6 = 0;
+                    let gen7 = 0;
+                    let gen8 = 0;
+                    let gen9 = 0;
+
+                    for (let i = 0 ;i < pokemon_do_usuario.length; i++) {
+                        if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 1) {
+                            gen1 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 2) {
+                            gen2 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 3) {
+                            gen3 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 4) {
+                            gen4 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 5) {
+                            gen5 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 6) {
+                            gen6 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 7) {
+                            gen7 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 8) {
+                            gen8 ++
+                        } else  if (pokemon_do_usuario[i].registrado == 1 && pokemon_do_usuario[i].geracao == 9) {
+                            gen9 ++
+                        }
+                    }
+
+                    let informacao_pokemon_registrados_region = [gen1,gen2,gen3,gen4,gen5,gen6,gen7,gen8,gen9]
+                    let grafico_region = new Chart(document.getElementById('grafico-region'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['1 gen', '2 gen', '3 gen', '4 gen', '5 gen', '6 gen', '7 gen', '8 gen', '9 gen'],
+                            datasets: [{
+                                data: informacao_pokemon_registrados_region,
+                                backgroundColor: ['#bfe685','#bfe685','#bfe685','#bfe685','#bfe685','#bfe685','#bfe685','#bfe685','#bfe685',]
+                            }]
+                        }
+                    });
                 });
 
             } else {
@@ -152,7 +216,8 @@
             }})
         }
     plotarGraficoPokemonAll()
-
+    let dados = [];
+    let grafico_tipo_especifico = null;
     function mudar_tipo_grafico() {
         var usuarioVar = sessionStorage.ID_USUARIO;
     fetch("/pokedex/buscarPokemonParaGrafico", {
@@ -181,18 +246,67 @@
                             registrados ++
                         } else if (pokemon_do_usuario[i].registrado == 0 && (pokemon_do_usuario[i].tipo_primario == tipo || pokemon_do_usuario[i].tipo_secundario == tipo)) { not_registrados ++ }
                     }
-                    let informacao_pokemon_registrados = [registrados, not_registrados]
+                    dados = [registrados, not_registrados]
                     document.getElementById("kpi_pokemon_tipo").innerHTML = `<span class="texto-kpi">${registrados}</span>`;
-                    let grafico_tipo_especifico = new Chart(document.getElementById('grafico_tipo_especifico'), {
-                        type: 'pie',
-                        data: {
-                        labels: ['Registrados', 'Não Registrados'],
-                        datasets: [{
-                        data: informacao_pokemon_registrados,
-                        backgroundColor: ['#dc143c', '#444']
-                }]
-            }
-        });
+                    
+                    let color = ``;
+
+                    if (tipo == 'Normal') {
+                        color = '#cecece';
+                    } else if (tipo == 'Lutador') {
+                        color = '#724a34';
+                    } else if (tipo == 'Voador') {
+                        color = '#b4e5ee';
+                    } else if (tipo == 'Veneno') {
+                        color = '#946bf3';
+                    } else if (tipo == 'Terra') {
+                        color = '#58291b';
+                    } else if (tipo == 'Pedra') {
+                        color = '#2e2c2c';
+                    } else if (tipo == 'Inseto') {
+                        color = '#b5f184';
+                    } else if (tipo == 'Fantasma') {
+                        color = '#553c55';
+                    } else if (tipo == 'Fogo') {
+                        color = '#fa573b';
+                    } else if (tipo == 'Água') {
+                        color = '#3b77fa';
+                    } else if (tipo == 'Grama') {
+                        color = '#1e7526';
+                    } else if (tipo == 'Elétrico') {
+                        color = '#d8bf32';
+                    } else if (tipo == 'Psíquico') {
+                        color = '#9632d8';
+                    } else if (tipo == 'Gelo') {
+                        color = '#32a3d8';
+                    } else if (tipo == 'Noturno') {
+                        color = '#181b1d';
+                    } else if (tipo == 'Dragão') {
+                        color = '#0003bd';
+                    } else if (tipo == 'Fada') {
+                        color = '#f383e4';
+                    } else if (tipo == 'Metal') {
+                        color = '#747373';
+                    }
+
+                    if (grafico_tipo_especifico == null) {
+                        grafico_tipo_especifico = new Chart(document.getElementById('grafico_tipo_especifico'), {
+                            type: 'pie',
+                            data: {
+                                labels: ['Registrados', 'Não Registrados'],
+                                datasets: [{
+                                    data: dados,
+                                    backgroundColor: [`${color}`, '#444']
+                                }]
+                            }
+                        });
+                    } else {
+                        grafico_tipo_especifico.data.datasets[0].data = dados;
+                        grafico_tipo_especifico.data.datasets[0].backgroundColor = [`${color}`, '#444'];
+                        grafico_tipo_especifico.update();
+                    }
+
+                   
                 });
 
             } else {

@@ -25,6 +25,7 @@ function buscarPokemonParaGrafico(idUsuario) {
     var instrucaoSql = `
        SELECT
     p.id,
+    p.geracao,
     p.tipo_primario,
     p.tipo_secundario,
     CASE
